@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Monotributo 2026 — Categoría y Cuota | ARCA</title>
+<meta name="description" content="Calculá gratis tu categoría de monotributo 2026 según tu ingreso mensual. Cuota actualizada con valores oficiales de ARCA (ex AFIP) para servicios y venta de bienes.">
+<meta property="og:title" content="Calculadora de Monotributo 2026 — Categoría y Cuota">
+<meta property="og:description" content="Ingresá tu facturación mensual y conocé tu categoría y cuota del monotributo, con valores oficiales 2026.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://calculadoramonotributo.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Calculadora de Monotributo 2026",
+  "description": "Calculá gratis tu categoría de monotributo 2026 según tu ingreso mensual. Valores oficiales de ARCA (ex AFIP).",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Cuándo tengo que recategorizarme en el monotributo?",
+      "acceptedAnswer": { "@type": "Answer", "text": "La recategorización es obligatoria dos veces al año: en enero/febrero y en julio/agosto. En esos períodos calculás tus ingresos de los últimos 12 meses y ajustás tu categoría. Si no te recategorizás, ARCA puede hacerlo de oficio." }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué pasa si supero el tope de mi categoría de monotributo?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Si superás el tope de tu categoría en más de un 25%, debés recategorizarte el mes siguiente. Si superás el tope de la categoría K, quedás excluido y debés inscribirte como Responsable Inscripto." }
+    },
+    {
+      "@type": "Question",
+      "name": "¿La cuota del monotributo incluye obra social y jubilación?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Sí. La cuota mensual incluye tres componentes: el impositivo (reemplaza IVA y Ganancias), el aporte jubilatorio al SIPA y el aporte a la obra social." }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuándo vence la cuota del monotributo?",
+      "acceptedAnswer": { "@type": "Answer", "text": "La cuota del monotributo vence el día 20 de cada mes. Si el día 20 cae en fin de semana o feriado, el vencimiento se corre al siguiente día hábil." }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué categoría me corresponde si recién me inscribo en el monotributo?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Al inscribirte por primera vez, elegís la categoría según los ingresos que estimás que vas a tener en los próximos 12 meses. Si estimás ingresos bajos, podés arrancar en categoría A. A los 6 meses debés hacer la primera recategorización." }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Estoy obligado a emitir factura electrónica siendo monotributista?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Sí. Todos los monotributistas están obligados a emitir facturas electrónicas (tipo C) por cada venta o servicio. Las facturas se emiten desde el portal de ARCA con tu clave fiscal, o desde aplicaciones habilitadas." }
+    }
+  ]
+}
+</script>
+<!-- Google AdSense: reemplazá ca-pub-XXXXXXXXXXXXXXXX con tu ID real de AdSense -->
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap');
+
+  :root{
+    --paper:#F1ECDD;
+    --paper-dark:#E5DCC4;
+    --ink:#1F2B22;
+    --stamp:#A23B2E;
+    --stamp-dark:#7E2E24;
+    --line:#C9BD9C;
+    --ok:#3D6B4F;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Source Serif 4', serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:560px;
+    margin:0 auto;
+    padding:28px 20px 60px;
+  }
+
+  header{
+    border-bottom:3px double var(--ink);
+    padding-bottom:14px;
+    margin-bottom:24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+  }
+  .h-left .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--stamp-dark);
+    margin:0 0 4px;
+  }
+  h1{
+    font-size:1.5rem;
+    margin:0;
+    line-height:1.15;
+    font-weight:700;
+  }
+  .vigencia{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    text-align:right;
+    color:#5b5640;
+    line-height:1.5;
+    white-space:nowrap;
+  }
+
+  /* Aviso próxima actualización */
+  .update-banner{
+    background:var(--paper-dark);
+    border:1px solid var(--line);
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:#5b5640;
+    padding:8px 12px;
+    margin-bottom:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .update-banner strong{ color:var(--stamp-dark); }
+
+  /* AdSense placeholder */
+  .ad-slot{
+    background:var(--paper-dark);
+    border:1px dashed var(--line);
+    text-align:center;
+    padding:18px;
+    margin-bottom:22px;
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    color:#a39c80;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+
+  .card{
+    background:var(--paper);
+    border:1.5px solid var(--ink);
+    padding:22px 20px;
+    margin-bottom:22px;
+    position:relative;
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    top:6px; left:6px; right:6px; bottom:6px;
+    border:1px solid var(--line);
+    pointer-events:none;
+  }
+  label{
+    display:block;
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin-bottom:8px;
+    color:var(--ink);
+  }
+  .field{ margin-bottom:18px; }
+  .money-input{
+    display:flex;
+    align-items:baseline;
+    border-bottom:2px solid var(--ink);
+    padding-bottom:6px;
+  }
+  .money-input span{
+    font-family:'Space Mono', monospace;
+    font-size:1.4rem;
+    margin-right:6px;
+  }
+  input[type="text"]{
+    border:none;
+    background:transparent;
+    font-family:'Space Mono', monospace;
+    font-size:1.4rem;
+    width:100%;
+    color:var(--ink);
+    outline:none;
+  }
+  input[type="text"]::placeholder{ color:#a39c80; }
+
+  .toggle{
+    display:flex;
+    gap:10px;
+  }
+  .toggle button{
+    flex:1;
+    padding:12px 8px;
+    border:1.5px solid var(--ink);
+    background:transparent;
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    cursor:pointer;
+    color:var(--ink);
+    transition:background .15s, color .15s;
+  }
+  .toggle button.active{
+    background:var(--ink);
+    color:var(--paper);
+  }
+
+  .result{
+    display:none;
+    border:2px solid var(--stamp);
+    padding:24px 20px;
+    margin-bottom:22px;
+    position:relative;
+    transform:rotate(-0.4deg);
+  }
+  .result.show{ display:block; }
+  .result .tag{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--stamp);
+    margin:0 0 10px;
+  }
+  .cat-row{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:14px;
+  }
+  .cat-letter{
+    font-family:'Space Mono', monospace;
+    font-size:3.2rem;
+    font-weight:700;
+    color:var(--stamp);
+    line-height:1;
+  }
+  .cat-desc{ font-size:0.95rem; color:#3a3526; max-width:330px;}
+  .quota-row{
+    border-top:1px solid var(--line);
+    padding-top:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+  }
+  .quota-label{ font-family:'Space Mono', monospace; font-size:12px; text-transform:uppercase; color:#5b5640;}
+  .quota-amount{ font-family:'Space Mono', monospace; font-size:1.6rem; font-weight:700;}
+  .alert-line{
+    margin-top:14px;
+    font-family:'Space Mono', monospace;
+    font-size:11.5px;
+    color:var(--stamp-dark);
+    border-top:1px dashed var(--line);
+    padding-top:10px;
+  }
+
+  .share-btn{
+    width:100%;
+    margin-top:16px;
+    padding:12px;
+    background:var(--ink);
+    color:var(--paper);
+    border:none;
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    cursor:pointer;
+  }
+  .share-btn:active{ opacity:0.85; }
+
+  .desglose{
+    margin-top:12px;
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:6px;
+  }
+  .desglose-item{
+    background:var(--paper-dark);
+    padding:8px 6px;
+    text-align:center;
+  }
+  .desglose-item .d-label{
+    font-family:'Space Mono', monospace;
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:#5b5640;
+    display:block;
+    margin-bottom:3px;
+  }
+  .desglose-item .d-val{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .vencimiento-note{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--ok);
+    margin-top:10px;
+    padding:6px 0;
+    border-top:1px dashed var(--line);
+  }
+
+  .note-card{
+    border-left:3px solid var(--stamp);
+    padding:4px 0 4px 16px;
+    margin-bottom:30px;
+    font-size:0.92rem;
+    color:#3a3526;
+  }
+  .note-card .tag{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--stamp);
+    margin:0 0 6px;
+  }
+  .note-card p:last-child{ margin:0; }
+
+  .tabla-section, .info-section, .comparador-section, .faq-section, .os-section{
+    margin-bottom:34px;
+  }
+  .tabla-section h2, .info-section h2, .comparador-section h2, .faq-section h2, .os-section h2{
+    font-size:1.1rem;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:8px;
+    margin-bottom:10px;
+  }
+  .tabla-intro{
+    font-size:0.85rem;
+    color:#5b5640;
+    margin:0 0 14px;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-family:'Space Mono', monospace;
+    font-size:11.5px;
+  }
+  table th, table td{
+    border-bottom:1px solid var(--line);
+    padding:7px 4px;
+    text-align:right;
+  }
+  table th:first-child, table td:first-child{ text-align:left; }
+  table thead th{
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:#5b5640;
+    font-weight:400;
+    font-size:10px;
+  }
+  table tbody tr.highlight{
+    background:rgba(162,59,46,0.08);
+    font-weight:700;
+  }
+  .info-section p, .comparador-section p{
+    font-size:0.92rem;
+    line-height:1.6;
+    color:#3a3526;
+    margin:0 0 10px;
+  }
+  .os-section p{
+    font-size:0.92rem;
+    line-height:1.6;
+    color:#3a3526;
+    margin:0 0 10px;
+  }
+  .os-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin:14px 0;
+  }
+  .os-card{
+    border:1.5px solid var(--line);
+    padding:14px 12px;
+  }
+  .os-card h3{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    margin:0 0 8px;
+    color:var(--ok);
+  }
+  .os-card p{
+    font-size:0.85rem;
+    line-height:1.5;
+    color:#3a3526;
+    margin:0;
+  }
+  .os-tip{
+    background:var(--paper-dark);
+    border-left:3px solid var(--ok);
+    padding:10px 14px;
+    font-size:0.88rem;
+    line-height:1.6;
+    color:#3a3526;
+    margin-top:14px;
+  }
+
+  /* Comparador */
+  .comp-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:14px;
+  }
+  .comp-col{
+    border:1.5px solid var(--ink);
+    padding:14px 12px;
+  }
+  .comp-col h3{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    margin:0 0 10px;
+    color:var(--ink);
+  }
+  .comp-col ul{
+    margin:0;
+    padding:0 0 0 16px;
+    font-size:0.85rem;
+    line-height:1.7;
+    color:#3a3526;
+  }
+  .comp-col.mono{ border-color:var(--ok); }
+  .comp-col.mono h3{ color:var(--ok); }
+  .comp-col.ri{ border-color:var(--stamp); }
+  .comp-col.ri h3{ color:var(--stamp); }
+
+  /* FAQ */
+  .faq-item{
+    border-bottom:1px solid var(--line);
+    padding:14px 0;
+  }
+  .faq-item:last-child{ border-bottom:none; }
+  .faq-q{
+    font-weight:700;
+    font-size:0.95rem;
+    margin:0 0 6px;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:start;
+    gap:10px;
+  }
+  .faq-q span{ font-family:'Space Mono', monospace; font-size:14px; flex-shrink:0; }
+  .faq-a{
+    font-size:0.9rem;
+    line-height:1.6;
+    color:#3a3526;
+    margin:0;
+    display:none;
+  }
+  .faq-item.open .faq-a{ display:block; }
+  .faq-item.open .faq-q span{ transform:rotate(45deg); display:inline-block; }
+
+  footer{
+    font-family:'Space Mono', monospace;
+    font-size:10.5px;
+    color:#7a7458;
+    line-height:1.6;
+    border-top:1px solid var(--line);
+    padding-top:14px;
+    margin-top:30px;
+  }
+  footer a{ color:var(--ok); text-decoration:none; border-bottom:1px dotted var(--ok); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="h-left">
+      <p class="eyebrow">Régimen Simplificado</p>
+      <h1>Calculadora de<br>Monotributo 2026</h1>
+    </div>
+    <div class="vigencia">VIGENTE DESDE<br>01/02/2026<br>ARCA (ex&nbsp;AFIP)</div>
+  </header>
+
+  <div class="update-banner">
+    <span>Valores actualizados feb. 2026</span>
+    <span>Próxima actualización: <strong>julio 2026</strong></span>
+  </div>
+
+  <!-- Espacio publicitario superior (activar cuando tengas AdSense aprobado) -->
+  <!-- <div class="ad-slot">Publicidad</div> -->
+
+  <div class="card">
+    <div class="field">
+      <label for="ingreso">Ingreso mensual estimado</label>
+      <div class="money-input">
+        <span>$</span>
+        <input type="text" id="ingreso" inputmode="numeric" placeholder="0" autocomplete="off">
+      </div>
+    </div>
+    <div class="field">
+      <label>Tipo de actividad</label>
+      <div class="toggle">
+        <button type="button" id="btn-servicios" class="active" onclick="setActividad('servicios')">Servicios</button>
+        <button type="button" id="btn-bienes" onclick="setActividad('bienes')">Venta de bienes</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="result" id="result">
+    <p class="tag">Tu categoría</p>
+    <div class="cat-row">
+      <div class="cat-letter" id="cat-letter">—</div>
+      <div class="cat-desc" id="cat-desc"></div>
+    </div>
+    <div class="quota-row">
+      <span class="quota-label">Cuota mensual total</span>
+      <span class="quota-amount" id="cat-cuota">$0</span>
+    </div>
+    <div class="desglose" id="desglose"></div>
+    <div class="vencimiento-note">📅 Vencimiento: día 20 de cada mes</div>
+    <div class="alert-line" id="alert-line"></div>
+    <button type="button" class="share-btn" onclick="compartir()">↗ Compartir por WhatsApp</button>
+  </div>
+
+  <!-- Espacio publicitario entre resultado y tabla (el más valioso para AdSense) -->
+  <!-- <div class="ad-slot">Publicidad</div> -->
+
+  <div class="note-card">
+    <p class="tag">Importante</p>
+    <p>Esta categoría se calcula en base a tu ingreso mensual estimado. ARCA también evalúa otros parámetros: superficie del local, energía eléctrica consumida y alquileres devengados. Si alguno de esos supera el tope de tu categoría, podés quedar en una categoría más alta aunque tu ingreso no lo indique.</p>
+  </div>
+
+  <section class="tabla-section">
+    <h2>Tabla de categorías del monotributo 2026</h2>
+    <p class="tabla-intro">Valores oficiales de ARCA (ex AFIP) vigentes desde el 1° de febrero de 2026. Se actualizan semestralmente.</p>
+    <table id="tabla-categorias">
+      <thead>
+        <tr><th>Cat.</th><th>Ingreso anual hasta</th><th>Cuota servicios</th><th>Cuota bienes</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section class="comparador-section">
+    <h2>¿Monotributo o Responsable Inscripto?</h2>
+    <p>Si tu ingreso anual está cerca o supera los topes del monotributo, puede convenir pasarte a Responsable Inscripto. Estas son las diferencias clave:</p>
+    <div class="comp-grid">
+      <div class="comp-col mono">
+        <h3>Monotributo</h3>
+        <ul>
+          <li>Cuota fija mensual</li>
+          <li>Sin llevar contabilidad compleja</li>
+          <li>No cobrás IVA a tus clientes</li>
+          <li>Tope de ingresos anuales</li>
+          <li>Incluye obra social y jubilación</li>
+        </ul>
+      </div>
+      <div class="comp-col ri">
+        <h3>Resp. Inscripto</h3>
+        <ul>
+          <li>Sin límite de ingresos</li>
+          <li>Pagás IVA e Impuesto a las Ganancias</li>
+          <li>Requiere contador</li>
+          <li>Podés facturar a empresas grandes</li>
+          <li>Más opciones de deducción</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Espacio publicitario antes de FAQ -->
+  <!-- <div class="ad-slot">Publicidad</div> -->
+
+  <section class="os-section">
+    <h2>Obra social del monotributo</h2>
+    <p>Al inscribirte en el monotributo, una parte de tu cuota mensual va destinada a una obra social. A diferencia de lo que mucha gente cree, podés elegir cualquier obra social del sistema nacional de salud, no solo una en particular.</p>
+
+    <div class="os-grid">
+      <div class="os-card">
+        <h3>¿Quién te cubre?</h3>
+        <p>Podés elegir cualquier obra social sindical del sistema nacional. La elección se hace al momento de la inscripción o durante el período anual de cambio.</p>
+      </div>
+      <div class="os-card">
+        <h3>Grupo familiar</h3>
+        <p>Podés incorporar a tu cónyuge, hijos menores de 21 años y personas a cargo. Cada integrante adicional tiene un costo extra mensual sobre tu cuota.</p>
+      </div>
+      <div class="os-card">
+        <h3>¿Cuándo empieza?</h3>
+        <p>La cobertura arranca a los 3 meses de inscripción, salvo que el titular tenga una urgencia médica antes, en cuyo caso la obra social debe cubrir igual.</p>
+      </div>
+      <div class="os-card">
+        <h3>¿Puedo hacer aportes voluntarios?</h3>
+        <p>Sí. Si querés mejorar tu plan de cobertura o acceder a prestaciones de mayor complejidad, podés hacer aportes voluntarios adicionales directamente a tu obra social.</p>
+      </div>
+      <div class="os-card">
+        <h3>¿Puedo derivar a una prepaga?</h3>
+        <p>Sí. Podés derivar parte o todo tu aporte a una prepaga (como Swiss Medical, Medicus, etc.) que tenga convenio con tu obra social, pagando la diferencia de bolsillo.</p>
+      </div>
+      <div class="os-card">
+        <h3>Empleo en relación de dependencia</h3>
+        <p>Si además tenés un empleo en relación de dependencia, podés optar por quedarte con la obra social de tu trabajo o con la del monotributo. No podés tener las dos a la vez.</p>
+      </div>
+    </div>
+
+    <div class="os-tip">
+      💡 <strong>Tip:</strong> Antes de elegir obra social, comparé las cartillas de médicos y sanatorios disponibles en tu ciudad. No todas las obras sociales tienen la misma cobertura en todas las provincias. Podés consultar las opciones en <a href="https://www.sssalud.gob.ar" target="_blank" rel="noopener">sssalud.gob.ar</a> (Superintendencia de Servicios de Salud).
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <h2>Preguntas frecuentes</h2>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Cuándo tengo que recategorizarme? <span>+</span></div>
+      <p class="faq-a">La recategorización es obligatoria dos veces al año: en enero/febrero y en julio/agosto. En esos períodos, calculás tus ingresos de los últimos 12 meses y ajustás tu categoría según corresponda. Si no te recategorizás, ARCA puede hacerlo de oficio.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Qué pasa si supero el tope de mi categoría? <span>+</span></div>
+      <p class="faq-a">Si en cualquier momento del año superás el tope de tu categoría actual en más de un 25%, debés recategorizarte en el mes siguiente. Si superás el tope máximo de la categoría K, quedás excluido del régimen simplificado y debés inscribirte como Responsable Inscripto.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿La cuota incluye obra social y jubilación? <span>+</span></div>
+      <p class="faq-a">Sí. La cuota mensual del monotributo incluye tres componentes: el impositivo (reemplaza IVA y Ganancias), el aporte al SIPA (jubilación) y el aporte a la obra social. Los valores que muestra esta calculadora son el total de los tres componentes.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Qué diferencia hay entre servicios y venta de bienes? <span>+</span></div>
+      <p class="faq-a">Para la venta de cosas muebles (productos físicos), los topes de ingreso anual son más altos para las categorías más bajas, pero las cuotas son ligeramente menores. La categoría I solo existe para prestadores de servicios. Si hacés las dos actividades, prevalece la actividad que genera más ingresos.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Puedo ser monotributista y también tener un empleo en relación de dependencia? <span>+</span></div>
+      <p class="faq-a">Sí, es compatible. Podés ser monotributista y al mismo tiempo tener un empleo en relación de dependencia. En ese caso, tus aportes jubilatorios del monotributo se acumulan a los que hace tu empleador. Sin embargo, tenés que evaluar si la obra social del empleo o la del monotributo te conviene más.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Cuándo se actualizan las escalas del monotributo? <span>+</span></div>
+      <p class="faq-a">Las escalas y cuotas del monotributo se actualizan dos veces por año, en enero/febrero y en julio/agosto, siguiendo la evolución del índice RIPTE (remuneraciones). La próxima actualización estimada es julio de 2026.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Puedo cambiar de obra social? <span>+</span></div>
+      <p class="faq-a">Sí. Podés cambiar de obra social una vez por año durante el período habilitado por ARCA. El cambio se hace a través del portal de ARCA con tu CUIL y clave fiscal. La nueva obra social tiene la obligación de aceptarte sin período de carencia, excepto en algunas prestaciones de alta complejidad.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Cuándo vence la cuota del monotributo? <span>+</span></div>
+      <p class="faq-a">La cuota del monotributo vence el día 20 de cada mes. Si el día 20 cae en fin de semana o feriado, el vencimiento se corre al siguiente día hábil. Podés pagar desde el portal de ARCA, por home banking, en Rapipago o Pagofácil.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Qué categoría elijo si recién me inscribo? <span>+</span></div>
+      <p class="faq-a">Al inscribirte por primera vez elegís la categoría en base a los ingresos que estimás tener en los próximos 12 meses. Podés arrancar en categoría A si estimás ingresos bajos. A los 6 meses debés hacer la primera recategorización con los ingresos reales que acumulaste.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Estoy obligado a emitir factura electrónica? <span>+</span></div>
+      <p class="faq-a">Sí. Todos los monotributistas deben emitir facturas electrónicas tipo C por cada venta o servicio. Podés hacerlo gratis desde el portal de ARCA o la app oficial. Las facturas en papel ya no están permitidas salvo casos muy puntuales autorizados por ARCA.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Qué es el Monotributo Social y en qué se diferencia? <span>+</span></div>
+      <p class="faq-a">El Monotributo Social es un régimen diferente al monotributo común, destinado a personas en situación de vulnerabilidad social. Tiene una cuota mucho más baja (50% del componente impositivo de la categoría A) y la cobertura de salud la da el Estado. Para acceder hay que ser beneficiario de un programa social o pertenecer a una cooperativa de trabajo. No es lo mismo que el monotributo regular.</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">¿Qué pasa con la obra social si me atraso en el pago de la cuota? <span>+</span></div>
+      <p class="faq-a">Si dejás de pagar la cuota del monotributo, la obra social puede suspender tu cobertura. Generalmente hay un período de gracia de 3 meses de falta de pago antes de que se corte, pero esto depende de cada obra social. Si regularizás la deuda, la cobertura se reestablece.</p>
+    </div>
+  </section>
+
+  <section class="info-section">
+    <h2>¿Qué es el monotributo?</h2>
+    <p>El monotributo es el Régimen Simplificado para Pequeños Contribuyentes de Argentina, administrado por ARCA (ex AFIP). Unifica en una sola cuota mensual el componente impositivo (que reemplaza IVA e Impuesto a las Ganancias), el aporte jubilatorio al SIPA y la cobertura de obra social.</p>
+    <p>La categoría que te corresponde depende principalmente de tu facturación anual, aunque también influyen la superficie del local, el consumo eléctrico y los alquileres pagados. Si prestás servicios, podés llegar hasta la categoría H; si vendés bienes, hasta la K.</p>
+    <p>La recategorización es obligatoria dos veces al año, en enero/febrero y en julio/agosto, evaluando los ingresos de los últimos 12 meses calendario.</p>
+  </section>
+
+  <section class="info-section">
+    <h2>Inicio de actividades: ¿qué categoría elegir?</h2>
+    <p>Si recién te inscribís en el monotributo por primera vez, no tenés historial de ingresos, así que elegís la categoría según lo que <strong>estimás que vas a facturar en los próximos 12 meses</strong>. No hay penalidad por arrancar en una categoría baja si después facturás más — simplemente te recategorizás a los 6 meses.</p>
+    <p>Muchos nuevos monotributistas arrancan en categoría A o B para minimizar el costo inicial y suben de categoría cuando la facturación lo justifica. Lo importante es no quedarse en una categoría inferior al tope por más de dos períodos consecutivos, porque eso puede generar intimaciones de ARCA.</p>
+    <div class="os-tip">
+      💡 <strong>Tip para nuevos:</strong> La inscripción se hace online en el portal de ARCA con tu CUIL y clave fiscal. Una vez inscripto, tenés que emitir facturas electrónicas tipo C por cada venta o servicio desde ese mismo portal.
+    </div>
+  </section>
+
+  <section class="info-section">
+    <h2>Factura electrónica para monotributistas</h2>
+    <p>Todos los monotributistas están obligados a emitir <strong>facturas electrónicas tipo C</strong> por cada venta o prestación de servicios. Las facturas en papel ya no están permitidas salvo excepciones muy puntuales.</p>
+    <p>Para emitir facturas electrónicas tenés tres opciones:</p>
+    <ul style="font-size:0.92rem; line-height:1.8; color:#3a3526; padding-left:20px; margin:0 0 10px;">
+      <li><strong>Portal de ARCA (comprobantes en línea):</strong> gratis, directo desde afip.gob.ar con tu clave fiscal.</li>
+      <li><strong>Aplicación ARCA Facturador:</strong> app oficial para celular, gratis.</li>
+      <li><strong>Sistemas de facturación privados:</strong> Facturama, Alegra, Contabilium, entre otros. Algunos son gratuitos para monotributistas con pocas facturas, otros tienen costo mensual.</li>
+    </ul>
+    <p>Cada factura tiene que tener tu CUIT/CUIL, la fecha, el concepto, el importe y los datos del cliente (si el cliente no tiene CUIL, se usa el genérico 00-00000000-0 para consumidor final).</p>
+  </section>
+
+  <section class="info-section">
+    <h2>Monotributo Social: ¿qué es y en qué se diferencia?</h2>
+    <p>El <strong>Monotributo Social</strong> es un régimen diferente al monotributo común. Está destinado a personas en situación de vulnerabilidad social que desarrollan actividades productivas. No hay que confundirlos.</p>
+    <p>Las principales diferencias son:</p>
+    <ul style="font-size:0.92rem; line-height:1.8; color:#3a3526; padding-left:20px; margin:0 0 10px;">
+      <li><strong>Cuota:</strong> en el monotributo social se paga solo el 50% del componente impositivo de la categoría A, sin componente de obra social obligatorio (la cobertura la da el Estado).</li>
+      <li><strong>Requisitos:</strong> hay que ser beneficiario de un programa social, estar en situación de vulnerabilidad económica o pertenecer a una cooperativa de trabajo inscripta.</li>
+      <li><strong>Inscripción:</strong> se tramita en el Ministerio de Desarrollo Social, no en ARCA directamente.</li>
+    </ul>
+    <p>Si no cumplís esos requisitos, no podés acceder al Monotributo Social. Esta calculadora es para el <strong>monotributo común</strong>.</p>
+  </section>
+
+  <footer>
+    Cálculo orientativo según escalas oficiales de ARCA (ex AFIP) vigentes desde el 1° de febrero de 2026. La categoría real se define por los ingresos de los últimos 12 meses y otros parámetros (superficie, energía eléctrica, alquileres). Verificá tu situación en el <a href="https://www.afip.gob.ar" target="_blank" rel="noopener">sitio oficial de ARCA</a> antes de recategorizarte. Esta herramienta no reemplaza el asesoramiento de un contador.
+  </footer>
+
+</div>
+
+<script>
+const ESCALAS = [
+  { cat:'A', tope:10277988,  servicios:42387,  bienes:42387  },
+  { cat:'B', tope:15058448,  servicios:48251,  bienes:48251  },
+  { cat:'C', tope:21113697,  servicios:56502,  bienes:55227  },
+  { cat:'D', tope:26212853,  servicios:72414,  bienes:70661  },
+  { cat:'E', tope:30833964,  servicios:102538, bienes:92658  },
+  { cat:'F', tope:38642048,  servicios:129045, bienes:111198 },
+  { cat:'G', tope:46211109,  servicios:197108, bienes:135918 },
+  { cat:'H', tope:70113407,  servicios:447347, bienes:272063 },
+  { cat:'I', tope:78479212,  servicios:824802, bienes:406512 },
+  { cat:'J', tope:89872640,  servicios:999008, bienes:497059 },
+  { cat:'K', tope:108357084, servicios:1381688,bienes:600880 },
+];
+
+let actividad = 'servicios';
+
+function setActividad(a){
+  actividad = a;
+  document.getElementById('btn-servicios').classList.toggle('active', a==='servicios');
+  document.getElementById('btn-bienes').classList.toggle('active', a==='bienes');
+  calcular();
+}
+
+function formatMoney(n){
+  return '$' + Math.round(n).toLocaleString('es-AR');
+}
+
+function calcular(){
+  const raw = document.getElementById('ingreso').value.replace(/\D/g,'');
+  const result = document.getElementById('result');
+  if(!raw){ result.classList.remove('show'); renderTabla(null); return; }
+
+  const mensual = parseInt(raw, 10);
+  const anual = mensual * 12;
+
+  let escalas = actividad === 'bienes' ? ESCALAS.filter(e => e.cat !== 'I') : ESCALAS;
+
+  let encontrada = escalas.find(e => anual <= e.tope);
+  let excluido = false;
+  if(!encontrada){ encontrada = escalas[escalas.length - 1]; excluido = true; }
+
+  document.getElementById('cat-letter').textContent = encontrada.cat;
+  document.getElementById('cat-desc').textContent =
+    `Con un ingreso anual estimado de ${formatMoney(anual)}, esta es tu categoría de monotributo para ${actividad === 'servicios' ? 'prestación de servicios' : 'venta de cosas muebles'}.`;
+
+  const cuota = actividad === 'servicios' ? encontrada.servicios : encontrada.bienes;
+  document.getElementById('cat-cuota').textContent = formatMoney(cuota);
+
+  // Desglose aproximado de la cuota (proporciones oficiales estimadas)
+  // Impositivo ~40%, SIPA ~40%, Obra social ~20% (varía por categoría)
+  const impositivo = Math.round(cuota * 0.38);
+  const sipa = Math.round(cuota * 0.43);
+  const os = cuota - impositivo - sipa;
+  document.getElementById('desglose').innerHTML = `
+    <div class="desglose-item"><span class="d-label">Impositivo</span><span class="d-val">${formatMoney(impositivo)}</span></div>
+    <div class="desglose-item"><span class="d-label">Jubilación</span><span class="d-val">${formatMoney(sipa)}</span></div>
+    <div class="desglose-item"><span class="d-label">Obra Social</span><span class="d-val">${formatMoney(os)}</span></div>
+  `;
+
+  const alertLine = document.getElementById('alert-line');
+  alertLine.textContent = excluido
+    ? '⚠ Tu ingreso anual supera el tope de la categoría K. Quedarías excluido del monotributo y deberías pasar a Responsable Inscripto.'
+    : '';
+
+  renderTabla(encontrada.cat);
+  result.classList.add('show');
+}
+
+function renderTabla(catActiva){
+  const tbody = document.querySelector('#tabla-categorias tbody');
+  tbody.innerHTML = '';
+  ESCALAS.forEach(e => {
+    const tr = document.createElement('tr');
+    if(catActiva && e.cat === catActiva) tr.classList.add('highlight');
+    tr.innerHTML = `
+      <td><strong>${e.cat}</strong>${catActiva && e.cat === catActiva ? ' ◀' : ''}</td>
+      <td>${formatMoney(e.tope)}</td>
+      <td>${formatMoney(e.servicios)}</td>
+      <td>${formatMoney(e.bienes)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+renderTabla(null);
+
+document.getElementById('ingreso').addEventListener('input', (e) => {
+  let v = e.target.value.replace(/\D/g,'');
+  e.target.value = v ? parseInt(v,10).toLocaleString('es-AR') : '';
+  calcular();
+});
+
+function compartir(){
+  const cat = document.getElementById('cat-letter').textContent;
+  const cuota = document.getElementById('cat-cuota').textContent;
+  const texto = `Calculé mi categoría de monotributo 2026: categoría ${cat}, cuota mensual ${cuota}. Calculá la tuya acá → ${window.location.href}`;
+  window.open(`https://wa.me/?text=${encodeURIComponent(texto)}`, '_blank');
+}
+
+function toggleFaq(el){
+  el.parentElement.classList.toggle('open');
+}
+</script>
+</body>
+</html>
